@@ -35,20 +35,9 @@ class ViewController: UIViewController {
             
 
         askQuestion(action: nil)
-
-        
-//        if totalQuestions == 10 {
-//            let gameOver = UIAlertController(title: title, message: "Game over", preferredStyle: .alert)
-//
-//            gameOver.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
-//        }
-        
     }
     
     func askQuestion(action: UIAlertAction!) {
-        
-//        var totalQuestions = 0
-        
         countries.shuffle()
         correctAnswer = Int.random(in:0...2)
         
@@ -65,7 +54,7 @@ class ViewController: UIViewController {
         
         if totalQuestions == 10 {
             print("Game should end")
-            let gameOver = UIAlertController(title: title, message: "Game over", preferredStyle: .alert)
+            let gameOver = UIAlertController(title: "Game over", message: "You completed 10 question.  Press continue to keep playing.", preferredStyle: .alert)
             
             gameOver.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
             
@@ -82,12 +71,14 @@ class ViewController: UIViewController {
         } else {
             title = "Wrong"
             score -= 1
+            
+            let wrongAnswer = UIAlertController(title: "Incorrect", message: "You selected: \(countries[sender.tag].uppercased())", preferredStyle: .alert)
+            wrongAnswer.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+            present(wrongAnswer, animated: true)
         }
         
         let ac = UIAlertController(title: title, message: "Your score is \(score)", preferredStyle: .alert)
-        
         ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
-        
         present(ac, animated: true)
     }
     
